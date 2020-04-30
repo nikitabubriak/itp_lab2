@@ -4,10 +4,10 @@
 #include <experimental/filesystem>
 #include <algorithm>
 
-#include <iomanip>
-
 using namespace std;
 namespace fs = experimental::filesystem;
+
+
 
 void input_data(string country[n], int votes[n][n])
 {
@@ -16,7 +16,7 @@ void input_data(string country[n], int votes[n][n])
 		c_element,
 		v_element;
 
-	int		c_current,
+	int	c_current,
 		c_processed = 0;
 
 	cout << "Enter " << extension << " files directory:" << endl;
@@ -54,6 +54,8 @@ void input_data(string country[n], int votes[n][n])
 		else continue;
 	}
 }
+
+
 
 void count_score(int votes[n][n], int score[n])
 {
@@ -101,6 +103,8 @@ void count_score(int votes[n][n], int score[n])
 	}
 }	
 
+
+
 void sort_top(int a[n], string c[n])
 {
 	for (int i = n - 1; i >= 0; i--)
@@ -110,74 +114,24 @@ void sort_top(int a[n], string c[n])
 			if (a[j] > a[j - 1])
 			{
 				swap(a[j], a[j - 1]);
-				
+
 				swap(c[j], c[j - 1]);
 			}
 		}
 	}
-
-	//============
-	//if (a[1] < 100) {
-	//	for (int i = 0; i < 10; i++) cout << setw(10) << a[i];
-	//	cout << endl;
-	//}
 }
+
+
 
 void output_top(int score[n], string country[n])
 {
-	/*for (int i = 0; i < n; i++)
-	{
-		cout << setw(10) << score[i];
-		cout << "\n" << endl;
-	}*/
-
-	cout << "\n========top10:=========\n" << endl;
-
-	for (int i = 0; i < 20; i++)
-	{
-		cout << "\n\t" << setw(15) << country[i] << setw(10) << score[i] << endl;
-		//cout << "\n\t"  << country[i] << "\t" << score[i] << endl;
-	}
-
-	//const string p = "/OP2/lab2/";
-	//fs::current_path() = fs::current_path("/OP2/lab2/");
 	ofstream outFile("results.csv");
 	if (!outFile.is_open()) { cout << "Error. Cannot open file\n"; return; }
 
-	
 	for (int i = 0; i < 10; i++)
 	{
 		outFile << country[i] << "," << score[i] << endl;
 	}
-	
-	//outFile << country[9] << "," << score[9] << "\n";
-	//string results = "results.csv";
-//D:\KPI\OP2\lab2
-	/*string parent = "lab2";
-	fs::path p = parent / fs::current_path();
-	fs::create_directory(p / "results");
-	rename(p/parent/results , p/results);
-	outFile.close();*/
-}
-
-
-//===========================\/test\/======================
-
-
-void output()
-{
-	for (int j = 0; j < n; j++)
-	{
-		cout << setw(10) << country[j];
-		cout << "\n" << endl;
-	}
-
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			cout << setw(10) << votes[i][j];
-		}
-		cout << "\n" << endl;
-	}
+	cout << "\n\nTop 10 winners added to results.csv\n" << endl;
+	outFile.close();
 }
