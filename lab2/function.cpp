@@ -27,13 +27,16 @@ void input_data(string country[n], int votes[n][n])
 		if (f.path().extension().string() == extension)
 		{
 			ifstream inFile(f.path());
-			if (!inFile.is_open()) { cout << "Error. Can not open file\n"; return; }
+			if (!inFile.is_open()) { cout << "Error. Cannot open file\n"; return; }
 
 			inFile >> c_current;
+
 			for (int i = 0 + c_processed; i < c_current + c_processed; i++)
 			{
 				getline(inFile, c_element, ',');
 				country[i] = c_element;
+
+				if (i == 0 + c_processed) country[i].erase(0, 1);
 
 				for (int j = 0; j < n - 1; j++)
 				{
@@ -127,6 +130,7 @@ void output_top(int score[n], string country[n])
 		cout << setw(10) << score[i];
 		cout << "\n" << endl;
 	}*/
+
 	cout << "\n========top10:=========\n" << endl;
 
 	for (int i = 0; i < 20; i++)
@@ -134,6 +138,26 @@ void output_top(int score[n], string country[n])
 		cout << "\n\t" << setw(15) << country[i] << setw(10) << score[i] << endl;
 		//cout << "\n\t"  << country[i] << "\t" << score[i] << endl;
 	}
+
+	//const string p = "/OP2/lab2/";
+	//fs::current_path() = fs::current_path("/OP2/lab2/");
+	ofstream outFile("results.csv");
+	if (!outFile.is_open()) { cout << "Error. Cannot open file\n"; return; }
+
+	
+	for (int i = 0; i < 10; i++)
+	{
+		outFile << country[i] << "," << score[i] << endl;
+	}
+	
+	//outFile << country[9] << "," << score[9] << "\n";
+	//string results = "results.csv";
+//D:\KPI\OP2\lab2
+	/*string parent = "lab2";
+	fs::path p = parent / fs::current_path();
+	fs::create_directory(p / "results");
+	rename(p/parent/results , p/results);
+	outFile.close();*/
 }
 
 
