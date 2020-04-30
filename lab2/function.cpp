@@ -11,13 +11,13 @@ namespace fs = experimental::filesystem;
 
 void input_data(string country[n], int votes[n][n])
 {
-	string	directory, 
-			extension = ".csv", 
-			c_element, 
-			v_element;
+	string	directory,
+		extension = ".csv",
+		c_element,
+		v_element;
 
-	int		c_current, 
-			c_processed = 0;
+	int		c_current,
+		c_processed = 0;
 
 	cout << "Enter " << extension << " files directory:" << endl;
 	cin >> directory;
@@ -28,7 +28,7 @@ void input_data(string country[n], int votes[n][n])
 		{
 			ifstream inFile(f.path());
 			if (!inFile.is_open()) { cout << "Error. Can not open file\n"; return; }
-			
+
 			inFile >> c_current;
 			for (int i = 0 + c_processed; i < c_current + c_processed; i++)
 			{
@@ -88,45 +88,50 @@ void count_score(int votes[n][n], int score[n])
 		{
 			for (f = 0; f < n; f++)
 			{
-				if (votes_local[h] == votes[g][f]) score[f] += score_points[h];
+				if (votes_local[h] == votes[g][f])
+				{
+					score[f] += score_points[h];
+				}
 			}
 		}
 	}
-
-void sort_top(int a[n])
-{
-	for (int i = n; i > 0; i--)
-	{
-		for (int j = n; j > n - i; j--)
-		{
-			if (a[j] > a[j - 1])
-				swap(a[j], a[j - 1]);
-		}
-	}
-
-	//============
-	for (int i = 0; i < 10; i++) cout << setw(10) << a[i];
-	cout << endl;
 }
 	
 
-//===========================\/test\/======================
-	
-	
-void output()
-{
-	for (int j = 0; j < n; j++)
+	void sort_top(int a[n])
 	{
-		cout << setw(10) << country[j];
-		cout << "\n" << endl;
+		for (int i = n; i > 0; i--)
+		{
+			for (int j = n; j > n - i; j--)
+			{
+				if (a[j] > a[j - 1])
+					swap(a[j], a[j - 1]);
+			}
+		}
+
+		//============
+		//for (int i = 0; i < 10; i++) cout << setw(10) << a[i];
+		//cout << endl;
 	}
 
-	for (int i = 0; i < n; i++)
+
+	//===========================\/test\/======================
+
+
+	void output()
 	{
 		for (int j = 0; j < n; j++)
 		{
-			cout << setw(10) << votes[i][j];	
+			cout << setw(10) << country[j];
+			cout << "\n" << endl;
 		}
-		cout << "\n" << endl;
+
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				cout << setw(10) << votes[i][j];
+			}
+			cout << "\n" << endl;
+		}
 	}
-}
