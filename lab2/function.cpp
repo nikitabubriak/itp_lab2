@@ -82,7 +82,8 @@ void count_score(int votes[n][n], int score[n])
 			votes_local[j] = votes[g][j];
 		}
 
-		sort_top(votes_local);
+		string placeholder[n];
+		sort_top(votes_local, placeholder);
 
 		for (h = 0; h < 10; h++)
 		{
@@ -95,43 +96,64 @@ void count_score(int votes[n][n], int score[n])
 			}
 		}
 	}
-}
-	
+}	
 
-	void sort_top(int a[n])
+void sort_top(int a[n], string c[n])
+{
+	for (int i = n - 1; i >= 0; i--)
 	{
-		for (int i = n; i > 0; i--)
+		for (int j = n - 1; j > n - 1 - i; j--)
 		{
-			for (int j = n; j > n - i; j--)
+			if (a[j] > a[j - 1])
 			{
-				if (a[j] > a[j - 1])
-					swap(a[j], a[j - 1]);
+				swap(a[j], a[j - 1]);
+				
+				swap(c[j], c[j - 1]);
 			}
 		}
-
-		//============
-		//for (int i = 0; i < 10; i++) cout << setw(10) << a[i];
-		//cout << endl;
 	}
 
+	//============
+	//if (a[1] < 100) {
+	//	for (int i = 0; i < 10; i++) cout << setw(10) << a[i];
+	//	cout << endl;
+	//}
+}
 
-	//===========================\/test\/======================
+void output_top(int score[n], string country[n])
+{
+	/*for (int i = 0; i < n; i++)
+	{
+		cout << setw(10) << score[i];
+		cout << "\n" << endl;
+	}*/
+	cout << "\n========top10:=========\n" << endl;
+
+	for (int i = 0; i < 20; i++)
+	{
+		cout << "\n\t" << setw(15) << country[i] << setw(10) << score[i] << endl;
+		//cout << "\n\t"  << country[i] << "\t" << score[i] << endl;
+	}
+}
 
 
-	void output()
+//===========================\/test\/======================
+
+
+void output()
+{
+	for (int j = 0; j < n; j++)
+	{
+		cout << setw(10) << country[j];
+		cout << "\n" << endl;
+	}
+
+	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			cout << setw(10) << country[j];
-			cout << "\n" << endl;
+			cout << setw(10) << votes[i][j];
 		}
-
-		for (int i = 0; i < n; i++)
-		{
-			for (int j = 0; j < n; j++)
-			{
-				cout << setw(10) << votes[i][j];
-			}
-			cout << "\n" << endl;
-		}
+		cout << "\n" << endl;
 	}
+}
