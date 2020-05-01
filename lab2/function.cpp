@@ -59,32 +59,15 @@ void input_data(string country[n], int votes[n][n])
 
 void count_score(int votes[n][n], int score[n])
 {
-	int votes_reverse[n][n];
-	int votes_local[20];
-	int g, h, f;
-	int score_points[10] = { 12,10,8,7,6,5,4,3,2,1 };
-
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			votes_reverse[i][j] = votes[i][j];
-		}
-	}
-
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			votes[i][j] = votes_reverse[j][i];
-		}
-	}
+	int votes_local[20],
+		g, h, f,
+		score_points[10] = { 12,10,8,7,6,5,4,3,2,1 };
 
 	for (g = 0; g < n; g++)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			votes_local[j] = votes[g][j];
+			votes_local[j] = votes[j][g];
 		}
 
 		string placeholder[n];
@@ -94,7 +77,7 @@ void count_score(int votes[n][n], int score[n])
 		{
 			for (f = 0; f < n; f++)
 			{
-				if (votes_local[h] == votes[g][f])
+				if (votes_local[h] == votes[f][g])
 				{
 					score[f] += score_points[h];
 				}
